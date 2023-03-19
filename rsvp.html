@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>RSVP</title>
+  </head>
+  <body>
+    <!-- <script src="js/script.js" defer></script> -->
+    <header id="sticky-menu">
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="rsvp.html">RSVP</a></li>
+          <li><a href="index.html">Gallery</a></li>
+          <li><a href="#location">Location</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="rsvp-form">
+        <h1>RSVP</h1>
+        <form action="php/submit-rsvp.php" method="POST">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required />
+
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+
+          <p>Food Allergies:</p>
+          <div class="checkbox-group">
+            <input type="checkbox" id="nuts" name="allergies[]" value="Nuts" />
+            <label for="nuts">Nuts</label>
+
+            <input
+              type="checkbox"
+              id="shellfish"
+              name="allergies[]"
+              value="Shellfish"
+            />
+            <label for="shellfish">Shellfish</label>
+
+            <input
+              type="checkbox"
+              id="dairy"
+              name="allergies[]"
+              value="Dairy"
+            />
+            <label for="dairy">Dairy</label>
+
+            <!-- Add more food allergy options if needed -->
+          </div>
+
+          <p>Accept Invitation?</p>
+          <div class="radio-group">
+            <input type="radio" id="yes" name="accept" value="yes" required />
+            <label for="yes">Yes</label>
+
+            <input type="radio" id="no" name="accept" value="no" required />
+            <label for="no">No</label>
+          </div>
+
+          <input type="submit" value="Submit" class="submit-button" />
+        </form>
+      </section>
+    </main>
+    <script src="js/script.js" defer></script>
+  </body>
+</html>
