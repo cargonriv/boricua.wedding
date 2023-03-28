@@ -307,3 +307,34 @@ body.modal-open {
   color: #ffffff;
   text-decoration: none;
 }
+
+.faq-question {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 1rem;
+}
+
+.faq-question-title {
+  background-color: #eee;
+  color: #333;
+  cursor: pointer;
+  display: block;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+  padding: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.faq-answer {
+  display: none;
+  padding: 0.5rem;
+}
+
+.faq-question.active .faq-question-title {
+  background-color: #333;
+  color: #fff;
+}
+
+.faq-question.active .faq-answer {
+  display: block;
+}
