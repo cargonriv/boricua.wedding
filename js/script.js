@@ -63,10 +63,10 @@ galleryImages.forEach((img) => {
   });
 });
 
-modalClose.addEventListener("click", () => {
-  modal.style.display = "none";
-  document.body.style.overflow = "auto";
-});
+// modalClose.addEventListener("click", () => {
+//   modal.style.display = "none";
+//   document.body.style.overflow = "auto";
+// });
 
 window.addEventListener("click", (event) => {
   if (event.target === modal) {
@@ -121,16 +121,14 @@ form.addEventListener("submit", (event) => {
   );
 });
 
-const faqTabs = document.querySelectorAll('.faq-tab input[type="checkbox"]');
+const faqRows = document.querySelectorAll(".faq-row");
 
-faqTabs.forEach((tab) => {
-  tab.addEventListener("change", () => {
-    if (tab.checked) {
-      faqTabs.forEach((otherTab) => {
-        if (otherTab !== tab) {
-          otherTab.checked = false;
-        }
-      });
-    }
+faqRows.forEach((row) => {
+  const question = row.querySelector(".faq-question");
+  const answer = row.querySelector(".faq-answer");
+  
+  question.addEventListener("click", () => {
+    console.log("hello world")
+    answer.classList.toggle("show");
   });
 });
