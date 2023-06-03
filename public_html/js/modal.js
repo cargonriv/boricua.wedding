@@ -2,8 +2,6 @@
 var registerModal = document.getElementById("register-modal");
 var loginModal = document.getElementById("login-modal");
 
-// Get the <span> elements that close the modals
-
 document.addEventListener("DOMContentLoaded", function () {
   var registerBtn = document.getElementById("register-btn");
   var loginBtn = document.getElementById("login-btn");
@@ -28,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 });
 
-// When the user clicks anywhere outside of the modal, close it
 window.onclick = function (event) {
   if (event.target == registerModal) {
     registerModal.style.display = "none";
