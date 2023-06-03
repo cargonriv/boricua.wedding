@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boricua Wedding Login/Registration</title>
+    <script type="module" src="js/modal.js"></script>
+    <script type="module" src="js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="fonts/style.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/modal.css" />
+  </head>
+  <body>
+    <header id="sticky-menu">
+      <div class="logo">C&amp;G</div>
+      <nav>
+        <ul>
+          <li class="active"><a href="https://www.boricua.wedding">Home</a></li>
+          <li><a href="rsvp.html">RSVP</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="locations.html">Events</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+        <ul>
+          <!-- <li><a href="#" id="open-register">Register</a></li>
+          <li><a href="#" id="open-login">Login</a></li> -->
+        </ul>
+      </nav>
+    </header>
+    <main class="slider-wrapper">
+      <div class="slider-container">
+        <div class="image-wrapper">
+          <img class="slider-image" src="images/nyc.JPG" alt="nyc" />
+        </div>
+        <div class="image-wrapper">
+          <img class="slider-image" src="images/brava.JPG" alt="brava" />
+        </div>
+        <div class="image-wrapper">
+          <img class="slider-image" src="images/boriken.JPG" alt="boriken" />
+        </div>
+        <div class="image-wrapper">
+          <img class="slider-image" src="images/chicago.JPG" alt="chicago" />
+        </div>
+        <div class="image-wrapper">
+          <img class="slider-image" src="images/seattle.JPG" alt="seattle" />
+        </div>
+      </div>
+    </main>
+    <!-- Registration Modal -->
+    <div id="register-modal" class="modal">
+      <div class="modal-content">
+        <h2>Register</h2>
+        <span class="close">&times;</span>
+        <form id="register-form">
+          <label for="firstname">First Name:</label><br />
+          <input type="text" id="firstname" name="firstname" required /><br />
+          <label for="lastname">Last Name:</label><br />
+          <input type="text" id="lastname" name="lastname" required /><br />
+          <label for="email">Email:</label><br />
+          <input type="email" id="email" name="email" required /><br />
+          <label for="password">Password:</label><br />
+          <input type="password" id="password" name="password" required /><br />
+          <input type="submit" value="Register" />
+        </form>
+        <button onclick="closeModal()">Close</button>
+      </div>
+    </div>
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+      <div class="modal-content">
+        <h2>Login</h2>
+        <span class="close">&times;</span>
+        <form id="login-form">
+          <label for="login-email">Email:</label><br />
+          <input type="email" id="login-email" name="email" required /><br />
+          <label for="login-password">Password:</label><br />
+          <input
+            type="password"
+            id="login-password"
+            name="password"
+            required
+          /><br />
+          <input type="submit" value="Login" />
+        </form>
+        <button onclick="closeModal()">Close</button>
+      </div>
+    </div>
+
+    <button id="login-btn">Login</button>
+    <button id="register-btn">Register</button>
+    <!-- <button onclick="openModal('login-modal')">Login</button>
+    <button onclick="openModal('register-modal')">Register</button> -->
+  </body>
+  <footer id="footer">
+    <div class="logo">C&amp;G</div>
+    <nav>
+      <ul>
+        <li><a href="tos.html">Terms of Service</a></li>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+      </ul>
+    </nav>
+    <div class="copyright"></div>
+  </footer>
+</html>
