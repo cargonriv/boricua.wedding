@@ -1,45 +1,4 @@
 require("dotenv").config();
-import { initializeApp } from "../../node_modules/firebase/app";
-import { getAnalytics } from "../../node_modules/firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Initialize Firebase Analytics
-const analytics = getAnalytics(initializeApp(firebaseConfig));
-
-// Initialize the FirebaseUI Widget using Firebase.
-var ui = new firebaseui.auth.AuthUI(firebase.auth());
-
-var uiConfig = {
-  callbacks: {
-    signInSuccessWithAuthResult: function (authResult, redirectUrl) {
-      // User successfully signed in.
-      // Return type determines whether we continue the redirect automatically
-      // or whether we leave that to developer to handle.
-      return true;
-    },
-    uiShown: function () {
-      // Hide the loader when the widget is rendered.
-      document.getElementById("loader").style.display = "none";
-    },
-  },
-  // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-  signInFlow: "popup",
-  signInSuccessUrl: "https://www.boricua.wedding",
-  signInOptions: [
-    firebase.auth.EmailAuthProvider.PROVIDER_ID,
-    firebase.auth.GithubAuthProvider.PROVIDER_ID,
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-  ],
-  // Terms of service url.
-  tosUrl: "https://www.boricua.wedding/tos",
-  // Privacy policy url.
-  privacyPolicyUrl: "https://www.boricua.wedding/privacy-policy",
-};
-
-// The start method will wait until the DOM is loaded.
-ui.start("#firebaseui-auth-container", uiConfig);
 
 function openModal(modalId) {
   $("#" + modalId).show();
@@ -51,9 +10,15 @@ function closeModal() {
   $("#register-form")[0].reset();
 }
 
-const images = document.querySelectorAll(".image-wrapper");
+const images = document.querySelectorAll(".image-wrapper img");
 let currentIndex = 0;
 let timer;
+
+setInterval(function () {
+  images[currentIndex].classList.remove("active");
+  currentIndex = (currentIndex + 1) % images.length; // Loop back to first image
+  images[currentIndex].classList.add("active");
+}, 3000);
 
 function startSlider() {
   timer = setInterval(() => {
@@ -102,30 +67,19 @@ function init() {
 init();
 
 // Gallery Modal
-
-const galleryImages = document.querySelectorAll(".gallery-img");
-const modal = document.querySelector(".modal");
 const modalImg = document.querySelector(".modal-img");
 const modalClose = document.querySelector(".modal-close");
+const galleryImages = document.querySelectorAll(".gallery-img");
 
 galleryImages.forEach((img) => {
   img.addEventListener("click", () => {
-    modal.style.display = "block";
+    modalImg.classList.add("open");
     modalImg.src = img.src;
-    document.body.style.overflow = "hidden";
   });
 });
 
-// modalClose.addEventListener("click", () => {
-//   modal.style.display = "none";
-//   document.body.style.overflow = "auto";
-// });
-
-window.addEventListener("click", (event) => {
-  if (event.target === modal) {
-    modal.style.display = "none";
-    document.body.style.overflow = "auto";
-  }
+modalClose.addEventListener("click", () => {
+  modalImg.classList.remove("open");
 });
 
 // RSVP Form Validation
@@ -192,7 +146,34 @@ function validateForm(email, password) {
 }
 
 $(document).ready(function () {
-  // TODO: change to var or leave const?
+  $("#login-btn").click(function () {
+    openModal("login-modal");
+  });
+
+  $("#register-btn").click(function () {
+    openModal("register-modal");
+  });
+
+  $(".close").click(function () {
+    closeModal();
+  });
+
+  var sliderImages = $(".slider-image");
+  var currentIndex = 0;
+  var interval = setInterval(slideImages, 10000);
+
+  function slideImages() {
+    currentIndex++;
+    if (currentIndex >= sliderImages.length) {
+      currentIndex = 0;
+    }
+
+    $(".slider-container").css(
+      "transform",
+      "translateX(-" + currentIndex * 100 + "%)"
+    );
+  }
+
   const firebaseConfig = {
     apiKey: process.env.firebaseAPI,
     authDomain: process.env.firebaseAuthDomain,
