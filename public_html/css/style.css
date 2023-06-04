@@ -1,14 +1,12 @@
-/* Primary Colors */
 :root {
+  /* Primary Colors */
   --primary-color: rgb(74, 87, 68);
   --primary-color-light: rgb(115, 135, 107);
   --primary-color-lighter: rgb(178, 209, 165);
   --primary-color-lightest: rgb(188, 222, 175);
   --primary-color-accent: rgb(217, 255, 201);
-}
 
-/* Accent Colors */
-:root {
+  /* Accent Colors */
   --accent-color-1: rgb(236, 180, 71);
   --accent-color-2: rgb(254, 205, 86);
   --accent-color-3: rgb(234, 183, 76);
@@ -16,13 +14,16 @@
   --accent-color-5: rgb(255, 240, 177);
 }
 
-/* Text Color */
-body {
-  color: var(--primary-color);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Background Color */
 body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: var(--primary-color);
   background-color: var(--primary-color-lighter);
 }
 
@@ -40,17 +41,6 @@ a {
 /* Hover Link Color */
 a:hover {
   color: var(--accent-color-3);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
 }
 
 @font-face {
@@ -95,43 +85,33 @@ nav a {
 }
 
 .slider-container {
+  display: flex;
   position: relative;
-  width: 100%;
-  height: 100%;
   overflow: hidden;
 }
 
 .image-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
-
-.image-wrapper.active {
-  opacity: 1;
-  z-index: 1;
+  position: relative;
+  height: 300px;
+  width: 500px;
+  overflow: hidden;
 }
 
 .image-wrapper img {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.image-wrapper img.active {
+  opacity: 1;
 }
 
 .slider-image {
-  position: absolute;
-  top: 100%;
-  left: 100%;
-  width: auto;
-  height: auto;
   max-width: 100%;
   max-height: 100%;
-  transform: translate(-50%, -50%);
 }
 
 .slider-image.landscape {
@@ -142,23 +122,6 @@ nav a {
 .slider-image.portrait {
   object-fit: contain;
   object-position: center top;
-}
-
-/* Responsive design */
-@media screen and (max-width: 768px) {
-  .slider-image {
-    flex: 1 0 50%;
-  }
-  nav ul {
-    flex-direction: column;
-    gap: 1rem;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .slider-image {
-    flex: 1 0 100%;
-  }
 }
 
 /* RSVP */
@@ -230,22 +193,45 @@ nav a {
   filter: brightness(0.8);
 }
 
-.modal-background {
+.modal {
+  display: none;
   position: fixed;
-  top: 0;
+  z-index: 1;
   left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+  align-items: center; /* For flexbox vertical alignment */
+  justify-content: center; /* For flexbox horizontal alignment */
 }
 
-.modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
+.modal-active {
+  display: flex; /* This shows the modal when the class is added */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  margin: 15% auto;
+  border: 1px solid #888;
+  width: 50%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
 }
 
 .modal-img {
@@ -262,16 +248,6 @@ nav a {
 
 body.modal-open {
   overflow: hidden;
-}
-
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 9998;
 }
 
 .rsvp-form label,
@@ -342,27 +318,6 @@ body.modal-open {
   display: block;
 }
 
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-}
-
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
-}
-
 .close {
   color: #aaa;
   float: right;
@@ -375,4 +330,21 @@ body.modal-open {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+  .slider-image {
+    flex: 1 0 50%;
+  }
+  nav ul {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .slider-image {
+    flex: 1 0 100%;
+  }
 }

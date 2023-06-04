@@ -3,8 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Boricua Wedding Login/Registration</title>
-    <script src="dist/bundle.js"></script>
+    <title>Login</title>
+    <script type="module" src="js/modal.js"></script>
+    <script type="module" src="js/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js"></script>
@@ -19,17 +20,15 @@
       <div class="logo">C&amp;G</div>
       <nav>
         <ul>
-          <li class="active"><a href="index.html">Home</a></li>
+          <li><a href="index.html">Home</a></li>
           <li><a href="rsvp.html">RSVP</a></li>
           <li><a href="gallery.html">Gallery</a></li>
           <li><a href="locations.html">Events</a></li>
           <li><a href="faq.html">FAQ</a></li>
         </ul>
         <ul>
-          <button id="login-btn" action="/login" method="post">Login</button>
-          <button id="register-btn" action="/register" method="post">
-            Register
-          </button>
+          <button id="login-btn">Login</button>
+          <button id="register-btn">Register</button>
         </ul>
       </nav>
     </header>
@@ -53,11 +52,11 @@
       </div>
     </main>
     <!-- Registration Modal -->
-    <div id="register-modal" class="modal">
+    <!-- <div id="register-modal" class="modal">
       <div class="modal-content">
         <h2>Register</h2>
         <span class="close">&times;</span>
-        <form id="register-form">
+        <form id="register-form" method="post">
           <label for="firstname">First Name:</label><br />
           <input type="text" id="firstname" name="firstname" required /><br />
           <label for="lastname">Last Name:</label><br />
@@ -66,17 +65,17 @@
           <input type="email" id="email" name="email" required /><br />
           <label for="password">Password:</label><br />
           <input type="password" id="password" name="password" required /><br />
-          <button id="submit-registration">Submit</button>
+          <button id="submit-registration" action="/register">Submit</button>
         </form>
         <button onclick="closeModal()">Close</button>
       </div>
-    </div>
+    </div> -->
     <!-- Login Modal -->
-    <div id="login-modal" class="modal">
+    <div id="on-login-modal" class="modal">
       <div class="modal-content">
         <h2>Login</h2>
         <span class="close">&times;</span>
-        <form id="login-form">
+        <form id="login-form" action="/login" method="post">
           <label for="login-email">Email:</label><br />
           <input type="email" id="login-email" name="email" required /><br />
           <label for="login-password">Password:</label><br />

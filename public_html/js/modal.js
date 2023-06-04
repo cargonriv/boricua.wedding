@@ -1,21 +1,19 @@
 // Get the modals
-var registerModal = document.getElementById("register-modal");
-var loginModal = document.getElementById("login-modal");
-
-// Get the <span> elements that close the modals
+var registerModal = document.getElementById("on-register-modal");
+var loginModal = document.getElementById("on-login-modal");
 
 document.addEventListener("DOMContentLoaded", function () {
-  var registerBtn = document.getElementById("register-btn");
-  var loginBtn = document.getElementById("login-btn");
+  // var registerBtn = document.getElementById("register-btn");
+  // var loginBtn = document.getElementById("login-btn");
 
   var registerSpan = document.getElementsByClassName("close")[0];
   var loginSpan = document.getElementsByClassName("close")[1];
 
-  registerBtn.onclick = function () {
+  registerModal.onload = function () {
     registerModal.style.display = "block";
   };
 
-  loginBtn.onclick = function () {
+  loginModal.onload = function () {
     loginModal.style.display = "block";
   };
 
