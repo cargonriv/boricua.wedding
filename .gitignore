@@ -8,8 +8,11 @@
 
 .prettierrc.json
 
+<<<<<<< HEAD
 playground.mongodb.js
 
+=======
+>>>>>>> eb43849e8149188f0ccfb54b92aee047cc9093b0
 secret.js
 
 # Logs
