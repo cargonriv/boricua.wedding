@@ -1,262 +1,214 @@
-require("dotenv").config();
-
-function openModal(modalId) {
-  $("#" + modalId).show();
-}
-
-function closeModal() {
-  $(".modal").hide();
-  $("#login-form")[0].reset();
-  $("#register-form")[0].reset();
-}
-
-const images = document.querySelectorAll(".image-wrapper img");
-let currentIndex = 0;
-let timer;
-
-setInterval(function () {
-  images[currentIndex].classList.remove("active");
-  currentIndex = (currentIndex + 1) % images.length; // Loop back to first image
-  images[currentIndex].classList.add("active");
-}, 3000);
-
-function startSlider() {
-  timer = setInterval(() => {
-    currentIndex++;
-    if (currentIndex > images.length - 1) {
-      currentIndex = 0;
-    }
-    setActiveImage();
-  }, 3000);
-}
-
-function setActiveImage() {
-  images.forEach((image, index) => {
-    if (index === currentIndex) {
-      image.classList.add("active");
-      image.classList.remove("inactive");
-      const img = image.querySelector("img");
-      const imageWidth = img.naturalWidth;
-      const imageHeight = img.naturalHeight;
-      const ratio = imageWidth / imageHeight;
-      if (ratio > 1) {
-        img.classList.add("landscape");
-        img.classList.remove("portrait");
-      } else {
-        img.classList.add("portrait");
-        img.classList.remove("landscape");
-      }
-    } else {
-      image.classList.remove("active");
-      image.classList.add("inactive");
-      image.querySelector("img").style.transform = "translate(-50%, -50%)";
-    }
-  });
-}
-
-function resetTimer() {
-  clearInterval(timer);
-  startSlider();
-}
-
-function init() {
-  setActiveImage();
-  startSlider();
-}
-
-init();
-
-// Gallery Modal
-const modalImg = document.querySelector(".modal-img");
-const modalClose = document.querySelector(".modal-close");
-const galleryImages = document.querySelectorAll(".gallery-img");
-
-galleryImages.forEach((img) => {
-  img.addEventListener("click", () => {
-    modalImg.classList.add("open");
-    modalImg.src = img.src;
-  });
-});
-
-modalClose.addEventListener("click", () => {
-  modalImg.classList.remove("open");
-});
-
-// RSVP Form Validation
-
-const form = document.querySelector("#rsvp-form");
-const nameInput = document.querySelector("#name");
-const emailInput = document.querySelector("#email");
-const attendingInput = document.querySelector("#attending");
-const allergiesInput = document.querySelector("#allergies");
-const submitButton = document.querySelector("#submit-button");
-const formMessage = document.querySelector("#form-message");
-
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  const nameValue = nameInput.value.trim();
-  const emailValue = emailInput.value.trim();
-  const attendingValue = attendingInput.checked ? "Yes" : "No";
-  const allergiesValue = allergiesInput.value.trim();
-
-  if (
-    nameValue === "" ||
-    emailValue === "" ||
-    attendingValue === "" ||
-    allergiesValue === ""
-  ) {
-    formMessage.textContent = "Please fill out all fields.";
-    return;
-  }
-
-  formMessage.textContent = "Submitting...";
-  submitButton.disabled = true;
-
-  // Make AJAX request to submit the form data
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", "submit-rsvp.php", true);
-  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhr.onload = function () {
-    if (xhr.readyState === xhr.DONE) {
-      formMessage.textContent = xhr.responseText;
-      submitButton.disabled = false;
-    }
-  };
-  xhr.send(
-    `name=${nameValue}&email=${emailValue}&attending=${attendingValue}&allergies=${allergiesValue}`
-  );
-});
-
-const faqRows = document.querySelectorAll(".faq-row");
-
-faqRows.forEach((row) => {
-  const question = row.querySelector(".faq-question");
-  const answer = row.querySelector(".faq-answer");
-
-  question.addEventListener("click", () => {
-    console.log("hello world");
-    answer.classList.toggle("show");
-  });
-});
-
-function validateForm(email, password) {
-  // simple validation
-  return email.length > 0 && password.length > 0;
-}
-
 $(document).ready(function () {
-  $("#login-btn").click(function () {
-    openModal("login-modal");
-  });
+  // Wait for Firebase SDK to load before using it
+  window.addEventListener("DOMContentLoaded", function () {
+    // Firebase SDK is now available for use
+    var firebaseConfig = {
+      apiKey: "AIzaSyCuWho-jMLd2M4cZtWklvc4ysgW9Cj00vE",
+      authDomain: "boricua-wedding.firebaseapp.com",
+      databaseURL: "https://boricua-wedding-default-rtdb.firebaseio.com/",
+      projectId: "boricua-wedding",
+      storageBucket: "boricua-wedding.appspot.com",
+      messagingSenderId: "456987082268",
+      appId: "1:456987082268:web:813d459249e6e70d63e9d9",
+      measurementId: "G-NNGD3YT30W",
+    };
+    firebase.initializeApp(firebaseConfig);
+    const images = $(".image-wrapper img");
+    let currentIndex = 0;
 
-  $("#register-btn").click(function () {
-    openModal("register-modal");
-  });
-
-  $(".close").click(function () {
-    closeModal();
-  });
-
-  var sliderImages = $(".slider-image");
-  var currentIndex = 0;
-  var interval = setInterval(slideImages, 10000);
-
-  function slideImages() {
-    currentIndex++;
-    if (currentIndex >= sliderImages.length) {
-      currentIndex = 0;
+    function setActiveImage() {
+      images.each((index, image) => {
+        if (index === currentIndex) {
+          $(image).addClass("active").removeClass("inactive");
+          const img = $(image).find("img");
+          const ratio = img.naturalWidth / img.naturalHeight;
+          if (ratio > 1) {
+            img.addClass("landscape").removeClass("portrait");
+          } else {
+            img.addClass("portrait").removeClass("landscape");
+          }
+        } else {
+          $(image).addClass("inactive").removeClass("active");
+          $(image).find("img").css("transform", "translate(-50%, -50%)");
+        }
+      });
     }
 
-    $(".slider-container").css(
-      "transform",
-      "translateX(-" + currentIndex * 100 + "%)"
-    );
-  }
+    function startSlider() {
+      setActiveImage();
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % images.length;
+        startSlider();
+      }, 3000);
+    }
 
-  const firebaseConfig = {
-    apiKey: process.env.firebaseAPI,
-    authDomain: process.env.firebaseAuthDomain,
-    projectId: process.env.firebaseProjectID,
-    storageBucket: process.env.firebaseStorageBucket,
-    messagingSenderId: process.env.firebaseMessagingSenderID,
-    appId: process.env.firebaseAppID,
-    measurementId: process.env.firebaseMeasurementID,
-  };
-  firebase.initializeApp(firebaseConfig);
-  firebase.auth().useDeviceLanguage();
+    startSlider();
 
-  var googleProvider = new firebase.auth.GoogleAuthProvider();
-  var twitterProvider = new firebase.auth.TwitterAuthProvider();
-  var githubProvider = new firebase.auth.GithubAuthProvider();
+    // Gallery Modal
+    const modalImg = $(".modal-img");
+    const modalClose = $(".modal-close");
+    const galleryImages = $(".gallery-img");
 
-  // Handle registration and login
-  function handleAuth(provider) {
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then(function (result) {
-        var token = result.credential.accessToken;
-        var user = result.user;
-        console.log(token, user);
-      })
-      .catch(function (error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        var email = error.email;
-        var credential = error.credential;
-        console.error(errorCode, errorMessage, email, credential);
+    galleryImages.click(function () {
+      modalImg.addClass("open");
+      modalImg.attr("src", $(this).attr("src"));
+    });
+
+    modalClose.click(function () {
+      modalImg.removeClass("open");
+    });
+
+    // FAQ Accordion
+    const faqRows = $(".faq-row");
+
+    faqRows.each(function () {
+      const question = $(this).find(".faq-question");
+      const answer = $(this).find(".faq-answer");
+
+      question.click(function () {
+        answer.toggleClass("show");
       });
-  }
+    });
 
-  function handleRegister(email, password) {
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .catch(function (error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.error(errorCode, errorMessage);
-      });
-  }
+    function openModal(modal) {
+      modal.show();
+    }
 
-  function handleLogin(email, password) {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .catch(function (error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.error(errorCode, errorMessage);
-      });
-  }
+    function closeModal(modal) {
+      modal.hide();
+      $("#login-form")[0].reset();
+      $("#register-form")[0].reset();
+    }
 
-  $("#register-google, #login-google").click(function (e) {
-    e.preventDefault();
-    handleAuth(googleProvider);
-  });
+    // Login & Register Modal Button Handlers
+    const registerModal = $("#register-modal");
+    const loginModal = $("#login-modal");
+    $("#login-btn").click(function () {
+      openModal(loginModal);
+    });
 
-  $("#register-twitter, #login-twitter").click(function (e) {
-    e.preventDefault();
-    handleAuth(twitterProvider);
-  });
+    $("#register-btn").click(function () {
+      openModal(registerModal);
+    });
 
-  $("#register-github, #login-github").click(function (e) {
-    e.preventDefault();
-    handleAuth(githubProvider);
-  });
+    $(".close").click(function () {
+      closeModal(registerModal);
+      closeModal(loginModal);
+    });
 
-  $("#register-email").submit(function (e) {
-    e.preventDefault();
-    var email = $("#register-email-field").val();
-    var password = $("#register-password-field").val();
-    handleRegister(email, password);
-  });
+    $(window).click(function (e) {
+      if (e.target === loginModal.get(0)) {
+        closeModal(loginModal);
+      } else if (e.target === registerModal.get(0)) {
+        closeModal(registerModal);
+      }
+    });
 
-  $("#login-email").submit(function (e) {
-    e.preventDefault();
-    var email = $("#login-email-field").val();
-    var password = $("#login-password-field").val();
-    handleLogin(email, password);
+    // Login & Register Form Handlers
+    $("#login-form").submit(function (e) {
+      e.preventDefault();
+      const email = $("#login-email").val();
+      const password = $("#login-password").val();
+      handleLogin(email, password);
+    });
+
+    $("#register-form").submit(function (e) {
+      e.preventDefault();
+      const email = $("#email").val();
+      const password = $("#password").val();
+      const firstname = $("#firstname").val();
+      const lastname = $("#lastname").val();
+      handleRegister(email, password, firstname, lastname);
+    });
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCuWho-jMLd2M4cZtWklvc4ysgW9Cj00vE",
+      authDomain: "boricua-wedding.firebaseapp.com",
+      projectId: "boricua-wedding",
+      storageBucket: "boricua-wedding.appspot.com",
+      messagingSenderId: "456987082268",
+      appId: "1:456987082268:web:813d459249e6e70d63e9d9",
+      measurementId: "G-NNGD3YT30W",
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    firebase.auth().useDeviceLanguage();
+
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
+    const twitterProvider = new firebase.auth.TwitterAuthProvider();
+    const githubProvider = new firebase.auth.GithubAuthProvider();
+
+    function handleRegister(email, password) {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(function (result) {
+          console.log("Registration successful");
+          closeModal(registerModal);
+          $("#register-message").html(
+            "Registration successful! You can now log in."
+          );
+        })
+        .catch(function (error) {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error(errorCode, errorMessage);
+          $("#register-message").html(errorMessage);
+        });
+    }
+
+    function handleLogin(email, password) {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(function (result) {
+          console.log("Login successful");
+          closeModal();
+          $("#login-message").html("Login successful!");
+        })
+        .catch(function (error) {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error(errorCode, errorMessage);
+          $("#login-message").html(errorMessage);
+        });
+    }
+
+    function handleAuth(provider) {
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(function (result) {
+          const token = result.credential.accessToken;
+          const user = result.user;
+          console.log(token, user);
+          // TODO: Store the token, redirect the user, or take some other action
+        })
+        .catch(function (error) {
+          console.error(
+            error.code,
+            error.message,
+            error.email,
+            error.credential
+          );
+          // TODO: Display a user-friendly error message
+        });
+    }
+
+    // Social Login Button Handlers
+    $("#register-google, #login-google").click(function (e) {
+      e.preventDefault();
+      handleAuth(googleProvider);
+    });
+
+    $("#register-twitter, #login-twitter").click(function (e) {
+      e.preventDefault();
+      handleAuth(twitterProvider);
+    });
+
+    $("#register-github, #login-github").click(function (e) {
+      e.preventDefault();
+      handleAuth(githubProvider);
+    });
   });
 });

@@ -1,11 +1,11 @@
 const path = require("path");
 const Dotenv = require("dotenv-webpack");
-const nodeExternals = require("webpack-node-externals");
+// const nodeExternals = require("webpack-node-externals");
+// export const externals = [nodeExternals()];
+// export const target = "node";
 
 module.exports = {
   entry: "./public_html/js/script.js",
-  target: "node",
-  externals: [nodeExternals()],
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "public_html/dist"),
