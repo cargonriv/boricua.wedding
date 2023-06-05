@@ -1,3 +1,10 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   var firebaseConfig = {
     apiKey: "AIzaSyCuWho-jMLd2M4cZtWklvc4ysgW9Cj00vE",
@@ -10,7 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
     measurementId: "G-NNGD3YT30W",
   };
 
-  firebase.initializeApp(firebaseConfig);
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
 
   // Get form elements
   var registerForm = document.getElementById("register-form");
@@ -28,9 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var password = document.getElementById("password").value;
 
     // Create new user
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
+    createUserWithEmailAndPassword(auth, email, password)
       .then(function (user) {
         // User created successfully, you can optionally use the user object for anything you like
         console.log("User registered successfully");
@@ -51,9 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var password = document.getElementById("login-password").value;
 
     // Log user in
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
+    signInWithEmailAndPassword(auth, email, password)
       .then(function (user) {
         // User logged in successfully, you can optionally use the user object for anything you like
         console.log("User logged in successfully");

@@ -1,18 +1,17 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  TwitterAuthProvider,
+  GithubAuthProvider,
+  useDeviceLanguage,
+} from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
+
 $(document).ready(function () {
-  // Wait for Firebase SDK to load before using it
   window.addEventListener("DOMContentLoaded", function () {
-    // Firebase SDK is now available for use
-    var firebaseConfig = {
-      apiKey: "AIzaSyCuWho-jMLd2M4cZtWklvc4ysgW9Cj00vE",
-      authDomain: "boricua-wedding.firebaseapp.com",
-      databaseURL: "https://boricua-wedding-default-rtdb.firebaseio.com/",
-      projectId: "boricua-wedding",
-      storageBucket: "boricua-wedding.appspot.com",
-      messagingSenderId: "456987082268",
-      appId: "1:456987082268:web:813d459249e6e70d63e9d9",
-      measurementId: "G-NNGD3YT30W",
-    };
-    firebase.initializeApp(firebaseConfig);
     const images = $(".image-wrapper img");
     let currentIndex = 0;
 
@@ -121,27 +120,27 @@ $(document).ready(function () {
       handleRegister(email, password, firstname, lastname);
     });
 
-    const firebaseConfig = {
+    var firebaseConfig = {
       apiKey: "AIzaSyCuWho-jMLd2M4cZtWklvc4ysgW9Cj00vE",
       authDomain: "boricua-wedding.firebaseapp.com",
+      databaseURL: "https://boricua-wedding-default-rtdb.firebaseio.com/",
       projectId: "boricua-wedding",
       storageBucket: "boricua-wedding.appspot.com",
       messagingSenderId: "456987082268",
       appId: "1:456987082268:web:813d459249e6e70d63e9d9",
       measurementId: "G-NNGD3YT30W",
     };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-    firebase.initializeApp(firebaseConfig);
-    firebase.auth().useDeviceLanguage();
+    useDeviceLanguage(auth);
 
-    const googleProvider = new firebase.auth.GoogleAuthProvider();
-    const twitterProvider = new firebase.auth.TwitterAuthProvider();
-    const githubProvider = new firebase.auth.GithubAuthProvider();
+    const googleProvider = new GoogleAuthProvider();
+    const twitterProvider = new TwitterAuthProvider();
+    const githubProvider = new GithubAuthProvider();
 
     function handleRegister(email, password) {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
+      createUserWithEmailAndPassword(auth, email, password)
         .then(function (result) {
           console.log("Registration successful");
           closeModal(registerModal);
@@ -158,9 +157,7 @@ $(document).ready(function () {
     }
 
     function handleLogin(email, password) {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password)
+      signInWithEmailAndPassword(auth, email, password)
         .then(function (result) {
           console.log("Login successful");
           closeModal();
@@ -175,9 +172,7 @@ $(document).ready(function () {
     }
 
     function handleAuth(provider) {
-      firebase
-        .auth()
-        .signInWithPopup(provider)
+      signInWithPopup(auth, provider)
         .then(function (result) {
           const token = result.credential.accessToken;
           const user = result.user;
