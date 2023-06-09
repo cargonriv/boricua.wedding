@@ -1,6 +1,5 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+import { auth } from "../../firebase.js";
 import {
-  getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -8,7 +7,7 @@ import {
   TwitterAuthProvider,
   GithubAuthProvider,
   useDeviceLanguage,
-} from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
+} from "firebase/auth";
 
 $(document).ready(function () {
   window.addEventListener("DOMContentLoaded", function () {
@@ -119,19 +118,6 @@ $(document).ready(function () {
       const lastname = $("#lastname").val();
       handleRegister(email, password, firstname, lastname);
     });
-
-    var firebaseConfig = {
-      apiKey: "AIzaSyCuWho-jMLd2M4cZtWklvc4ysgW9Cj00vE",
-      authDomain: "boricua-wedding.firebaseapp.com",
-      databaseURL: "https://boricua-wedding-default-rtdb.firebaseio.com/",
-      projectId: "boricua-wedding",
-      storageBucket: "boricua-wedding.appspot.com",
-      messagingSenderId: "456987082268",
-      appId: "1:456987082268:web:813d459249e6e70d63e9d9",
-      measurementId: "G-NNGD3YT30W",
-    };
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
 
     useDeviceLanguage(auth);
 

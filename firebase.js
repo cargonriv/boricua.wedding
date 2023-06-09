@@ -1,6 +1,6 @@
-const firebase = require("firebase");
-require("firebase/auth");
-require("dotenv").config();
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 var firebaseConfig = {
   apiKey: "AIzaSyCuWho-jMLd2M4cZtWklvc4ysgW9Cj00vE",
@@ -13,6 +13,8 @@ var firebaseConfig = {
   measurementId: "G-NNGD3YT30W",
 };
 
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-module.exports = firebase;
+export { app, auth, db };

@@ -3,21 +3,119 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register</title>
+    <title>Login</title>
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="favico/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="favico/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="favico/favicon-16x16.png"
+    />
+    <script type="module" src="js/modal.js"></script>
+    <script type="module" src="js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <link rel="stylesheet" href="fonts/style.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/modal.css" />
   </head>
   <body>
-    <div class="container">
-      <h2>Register</h2>
-      <form action="/submit_registration" method="post">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required />
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required />
-
-        <input type="submit" value="Register" />
-      </form>
+    <header id="sticky-menu">
+      <div class="logo">C&amp;G</div>
+      <nav>
+        <ul>
+          <li class="active"><a href="index.html">Home</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="travel.html">Travel</a></li>
+          <li><a href="qa.html">Q&amp;A</a></li>
+          <li><a href="rsvp.html">RSVP</a></li>
+        </ul>
+        <ul>
+          <button id="login-btn">Login</button>
+          <button id="register-btn">Register</button>
+        </ul>
+      </nav>
+    </header>
+    <main class="slider-wrapper">
+      <div class="slider-container">
+        <div class="image-wrapper">
+          <img class="slider-image" src="images/nyc.JPG" alt="nyc" />
+        </div>
+        <div class="image-wrapper">
+          <img class="slider-image" src="images/brava.JPG" alt="brava" />
+        </div>
+        <div class="image-wrapper">
+          <img class="slider-image" src="images/boriken.JPG" alt="boriken" />
+        </div>
+        <div class="image-wrapper">
+          <img class="slider-image" src="images/chicago.JPG" alt="chicago" />
+        </div>
+        <div class="image-wrapper">
+          <img class="slider-image" src="images/seattle.JPG" alt="seattle" />
+        </div>
+      </div>
+    </main>
+    <!-- Registration Modal -->
+    <div id="register-modal" class="modal">
+      <div class="modal-content">
+        <h2>Register</h2>
+        <span class="close">&times;</span>
+        <form id="register-form" method="post">
+          <label for="firstname">First Name:</label><br />
+          <input type="text" id="firstname" name="firstname" required /><br />
+          <label for="lastname">Last Name:</label><br />
+          <input type="text" id="lastname" name="lastname" required /><br />
+          <label for="email">Email:</label><br />
+          <input type="email" id="email" name="email" required /><br />
+          <label for="password">Password:</label><br />
+          <input type="password" id="password" name="password" required /><br />
+          <button id="submit-registration" action="/register">Submit</button>
+        </form>
+        <button onclick="closeModal()">Close</button>
+      </div>
     </div>
+    <!-- Login Modal -->
+    <!-- <div id="on-login-modal" class="modal">
+      <div class="modal-content">
+        <h2>Login</h2>
+        <span class="close">&times;</span>
+        <form id="login-form" action="/login" method="post">
+          <label for="login-email">Email:</label><br />
+          <input type="email" id="login-email" name="email" required /><br />
+          <label for="login-password">Password:</label><br />
+          <input
+            type="password"
+            id="login-password"
+            name="password"
+            required
+          /><br />
+          <button id="submit-login">Submit</button>
+        </form>
+        <button onclick="closeModal()">Close</button>
+      </div>
+    </div> -->
   </body>
+  <footer id="footer">
+    <div class="logo">C&amp;G</div>
+    <nav>
+      <ul>
+        <li><a href="tos.html">Terms of Service</a></li>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+      </ul>
+    </nav>
+    <div class="copyright"></div>
+  </footer>
 </html>

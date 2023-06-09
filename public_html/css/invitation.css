@@ -1,0 +1,25 @@
+/* invite-animation.css */
+
+.envelope {
+  position: relative;
+  width: 200px;
+  height: 100px;
+  /* styling for envelope */
+}
+
+.letter {
+  position: absolute;
+  width: 180px;
+  height: 80px;
+  /* styling for letter */
+  opacity: 0;
+  animation: slide 1s forwards;
+  animation-delay: 1s;
+}
+
+@keyframes slide {
+  to {
+    top: -80px;
+    opacity: 1;
+  }
+}

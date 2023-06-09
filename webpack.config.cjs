@@ -6,6 +6,10 @@ const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   entry: "./public_html/js/script.js",
+  resolve: {
+    modules: ["node_modules"],
+    extensions: [".js", ".jsx"],
+  },
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "public_html/dist"),

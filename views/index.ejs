@@ -3,19 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Boricua Wedding Login/Registration</title>
+    <title>Boricua Wedding Homepage</title>
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="favico/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="favico/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="favico/favicon-16x16.png"
+    />
+    <link rel="manifest" href="favico/site.webmanifest" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script
-      type="module"
-      src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"
-      defer
-    ></script>
-    <script
-      type="module"
-      src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js"
-      defer
-    ></script>
-    <script src="dist/bundle.js" defer></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script> -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-store.js"></script> -->
+    <script src="dist/bundle.js"></script>
+    <script src="js/count.js"></script>
     <link rel="stylesheet" href="fonts/style.css" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
@@ -25,18 +37,20 @@
       <nav>
         <ul>
           <li class="active"><a href="index.html">Home</a></li>
-          <li><a href="rsvp.html">RSVP</a></li>
           <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="locations.html">Events</a></li>
-          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="travel.html">Travel</a></li>
+          <li><a href="qa.html">Q&amp;A</a></li>
+          <li><a href="rsvp.html">RSVP</a></li>
         </ul>
         <ul>
-          <button id="login-btn">Login</button>
-          <button id="register-btn">Register</button>
+          <li><button id="login-btn">Login</button></li>
+          <li><button id="register-btn">Register</button></li>
         </ul>
       </nav>
     </header>
-    <script type="module" src="./js/auth.js" defer></script>
+    <script type="text/html" src="js/auth.js"></script>
+    <!-- <div class="text">Countdown to July 14th, 2024!</div> -->
+    <div class="countdown" id="countdown"></div>
     <main class="slider-wrapper">
       <div class="slider-container">
         <div class="image-wrapper">
